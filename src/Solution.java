@@ -1,31 +1,32 @@
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
+import java.util.Map;
 
 public class Solution {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         
-        // 1. Read the entire line of text
+        // Use hasNextLine to ensure we don't crash on empty input
         if (sc.hasNextLine()) {
-            String input = sc.nextLine();
+            String input = sc.nextLine().trim();
             
-            // 2. Split the line into an array of words
-            // "\\s+" matches one or more whitespace characters
+            if (input.isEmpty()) {
+                sc.close();
+                return;
+            }
+
+            // Split by one or more whitespace characters
             String[] words = input.split("\\s+");
             
-            // 3. Create the HashMap
-            HashMap<String, Integer> counts = new HashMap<>();
+            // TreeMap keeps the words in alphabetical order (A-Z)
+            TreeMap<String, Integer> counts = new TreeMap<>();
             
-            // 4. Process each word
             for (String word : words) {
-                if (word.isEmpty()) continue; // Ignore extra spaces
-                
-                // getOrDefault checks if word exists; if not, starts at 0
+                // update the count: if new, start at 0 and add 1
                 counts.put(word, counts.getOrDefault(word, 0) + 1);
             }
             
-            // 5. Print the results in "Word: Count" format
+            // Print results: Word: Count
             for (Map.Entry<String, Integer> entry : counts.entrySet()) {
                 System.out.println(entry.getKey() + ": " + entry.getValue());
             }
