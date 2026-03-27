@@ -1,21 +1,37 @@
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
+import java.util.Map;
 
 public class Solution {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         
-        // TODO: Read a single line of text
+        // Use hasNextLine to ensure we don't crash on empty input
+        if (sc.hasNextLine()) {
+            String input = sc.nextLine().trim();
+            
+            if (input.isEmpty()) {
+                sc.close();
+                return;
+            }
+
+            // Split by one or more whitespace characters
+            String[] words = input.split("\\s+");
+            
+            // TreeMap keeps the words in alphabetical order (A-Z)
+            TreeMap<String, Integer> counts = new TreeMap<>();
+            
+            for (String word : words) {
+                // update the count: if new, start at 0 and add 1
+                counts.put(word, counts.getOrDefault(word, 0) + 1);
+            }
+            
+            // Print results: Word: Count
+            for (Map.Entry<String, Integer> entry : counts.entrySet()) {
+                System.out.println(entry.getKey() + ": " + entry.getValue());
+            }
+        }
         
-        // TODO: Split the text into individual words
-        
-        // TODO: Create a HashMap to store the frequency of each word
-        
-        // TODO: Iterate through the words and update their frequencies in the map
-        
-        // TODO: Iterate through the map and print the unique words and their counts
-        // Format: "word: count"
-        
+        sc.close();
     }
 }
